@@ -1,8 +1,13 @@
-package com.example.post.config;
+package com.example.post.config.swagger;
 
 
+import static java.util.Collections.singleton;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,6 +22,8 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(true)
+                .produces(singleton(APPLICATION_JSON_VALUE))
+                .directModelSubstitute(byte[].class, String.class)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.post.controller"))

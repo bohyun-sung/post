@@ -6,3 +6,9 @@ spring:
 logging:
   level:
     root: info
+
+server:
+  sevlet:
+    encoding:
+      charset: UTF-8
+      force: true
