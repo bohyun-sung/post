@@ -14,4 +14,12 @@
         </encoder>
     </appender>
 
+    <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.zaxxer.hikari" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
 </configuration>
