@@ -3,12 +3,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-logging:
-  level:
-    root: info
-
 server:
   sevlet:
     encoding:
       charset: UTF-8
       force: true
+
+logging:
+  config: classpath:config/logback-spring.xml
