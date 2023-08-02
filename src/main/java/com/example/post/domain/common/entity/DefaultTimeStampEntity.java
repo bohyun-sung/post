@@ -17,10 +17,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class DefaultTimeStampEntity {
 
     @CreatedDate
-    @Column(name = "rgdt", updatable = false, columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성시간'")
+    @Column(name = "rgdt", updatable = false, columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성시간'")
     protected LocalDateTime rgdt;
 
     @LastModifiedDate
-    @Column(name = "updt", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '변경시간'")
+    @Column(name = "updt", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '변경시간'")
     protected LocalDateTime updt;
 }
