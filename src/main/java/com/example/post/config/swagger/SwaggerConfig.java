@@ -4,13 +4,17 @@ package com.example.post.config.swagger;
 import static java.util.Collections.singleton;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import com.fasterxml.classmate.TypeResolver;
 import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.AlternateTypeRule;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -20,7 +24,11 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
+        TypeResolver typeResolver = new TypeResolver();
         return new Docket(DocumentationType.OAS_30)
+                .alternateTypeRules(AlternateTypeRules.newRule(
+                        typeResolver.resolve(Pageable.class),
+                        typeResolver.resolve(RequestPageableModel.class)))
                 .useDefaultResponseMessages(true)
                 .produces(singleton(APPLICATION_JSON_VALUE))
                 .directModelSubstitute(byte[].class, String.class)
