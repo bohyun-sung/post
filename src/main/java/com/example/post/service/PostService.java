@@ -22,7 +22,7 @@ public class PostService {
     }
 
     public PostDto showPost(Long id) {
-        return PostDto.from(getPostOrException(id));
+        return PostDto.fromWithReply(getPostOrException(id));
     }
 
     @Transactional
@@ -49,6 +49,6 @@ public class PostService {
      * @return POST Entity
      */
     private Post getPostOrException(Long id) {
-        return postRepository.findById(id).orElseThrow(RuntimeException::new);
+        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다"));
     }
 }
