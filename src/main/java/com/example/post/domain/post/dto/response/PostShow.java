@@ -8,15 +8,15 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class PostRes {
+public class PostShow {
     private final Long id;
     private final String title;
     private final String content;
     private final LocalDateTime rgdt;
     private final LocalDateTime updt;
 
-    public static PostRes from(PostDto dto) {
-        return new PostRes(
+    public static PostShow from(PostDto dto) {
+        return new PostShow(
                 dto.getId(),
                 dto.getTitle(),
                 dto.getContent(),
@@ -24,4 +24,5 @@ public class PostRes {
                 dto.getUpdt()
         );
     }
+
 }

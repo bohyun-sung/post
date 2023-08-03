@@ -1,6 +1,7 @@
 package com.example.post.service;
 
 import com.example.post.domain.post.dto.PostDto;
+import com.example.post.domain.post.dto.requset.PostCreateAndUpdateReq;
 import com.example.post.domain.post.entity.Post;
 import com.example.post.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +17,38 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public Page<PostDto> searchPost(Pageable pageable) {
+    public Page<PostDto> indexPost(Pageable pageable) {
         return postRepository.findAll(pageable).map(PostDto::from);
     }
 
-    @Transactional
-    public void createPost(PostDto dto) {
-        postRepository.save(dto.toEntity());
+    public PostDto showPost(Long id) {
+        return PostDto.from(getPostOrException(id));
     }
 
+    @Transactional
+    public void createPost(PostCreateAndUpdateReq req) {
+        postRepository.save(req.toEntity());
+    }
 
+    @Transactional
+    public void updatePost(Long id, PostCreateAndUpdateReq req) {
+        Post post = getPostOrException(id);
+        post.modifyPost(req.getTitle(), req.getContent());
+    }
+
+    @Transactional
+    public void deletePost(Long id) {
+        Post post = getPostOrException(id);
+        postRepository.delete(post);
+    }
+
+    /**
+     * POST Entity 조회
+     * TODO 에러 핸들링은 추후 구현
+     * @param id POST id
+     * @return POST Entity
+     */
+    private Post getPostOrException(Long id) {
+        return postRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
 }

@@ -19,12 +19,13 @@ public class Post extends DefaultTimeStampEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
 
-    @Column(name = "title", columnDefinition = "")
+    @Column(name = "title", columnDefinition = "VARCHAR(100) NOT NULL COMMENT '제목'")
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "VARCHAR(500) NOT NULL COMMENT '본문'")
     private String content;
 
     private Post(String title, String content) {
@@ -34,5 +35,10 @@ public class Post extends DefaultTimeStampEntity {
 
     public static Post of(String title, String content) {
         return new Post(title, content);
+    }
+
+    public void modifyPost(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }

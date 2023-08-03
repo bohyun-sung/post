@@ -36,7 +36,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.post.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .groupName("게시판 연습");
     }
 
     public ApiInfo apiInfo() {
