@@ -36,12 +36,19 @@ public class Reply extends DefaultTimeStampEntity {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    private Reply(String writer, String content) {
+    private Reply(String writer, String content, Post post) {
         this.writer = writer;
         this.content = content;
+        this.post = post;
     }
 
-    public static Reply of(String writer, String content){
-        return new Reply(writer, content);
+    public static Reply of(String writer, String content, Post post){
+        return new Reply(writer, content, post);
+    }
+
+
+    public void modifyReply(String writer, String content) {
+        this.writer = writer;
+        this.content = content;
     }
 }
