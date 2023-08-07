@@ -28,7 +28,10 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3'
 
 	// h2
-	runtimeOnly 'com.h2database:h2'
+//	runtimeOnly 'com.h2database:h2'
+
+	// mysql
+	implementation 'mysql:mysql-connector-java:8.0.33'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
