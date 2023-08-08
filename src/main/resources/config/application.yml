@@ -47,3 +47,7 @@ logging:
             sql: trace
 
   config: classpath:config/logback-spring.xml
+
+jwt:
+  token:
+    customer-access-token-expiration: 86400000
