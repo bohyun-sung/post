@@ -32,7 +32,7 @@ public class EncryptionUtils {
     }
 
     public static String getSecretKey() {
-        return "secretKey";
+        return "/U0RbIKgNpuXV.s.L0V.095j9bltcruqEYoEthB5wce.BIC";
     }
 
     public static String getSalt() {

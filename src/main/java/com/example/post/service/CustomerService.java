@@ -5,6 +5,7 @@ import com.example.post.config.security.jwt.JwtTokenUtils;
 import com.example.post.domain.customer.dto.request.CustomerCreateReq;
 import com.example.post.domain.customer.entity.Customer;
 import com.example.post.domain.customer.repository.CustomerRepository;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class CustomerService {
     }
 
     private void validatePassword(String password, String queryPassword) {
-        if (encoder.matches(password, queryPassword)) {
+        if (!encoder.matches(password, queryPassword)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
         }
     }
