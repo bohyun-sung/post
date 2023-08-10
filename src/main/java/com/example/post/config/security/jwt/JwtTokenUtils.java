@@ -6,7 +6,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -26,7 +25,7 @@ public class JwtTokenUtils {
         }
     }
 
-    public static String generateToken(String userId, String key, long expiredTimeMs) {
+    public static String generateToken(String userId, long expiredTimeMs) {
         Claims claims = Jwts.claims();
         claims.put("userId", EncryptionUtils.encrypt(userId));
 

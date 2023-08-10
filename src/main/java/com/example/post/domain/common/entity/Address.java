@@ -29,4 +29,15 @@ public class Address {
 
     @Column(name = "address2", columnDefinition = "VARCHAR(100) COMMENT '주소2'")
     private String address2;
+
+    private Address(Long id, String zipcode, String address1, String address2) {
+        this.id = id;
+        this.zipcode = zipcode;
+        this.address1 = address1;
+        this.address2 = address2;
+    }
+
+    public static Address of(String zipcode, String address1, String address2) {
+        return new Address(null, zipcode, address1, address2);
+    }
 }

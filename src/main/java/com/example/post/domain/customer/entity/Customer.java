@@ -40,4 +40,16 @@ public class Customer extends DefaultTimeStampEntity {
     @JoinColumn(name = "address_id", columnDefinition = "BIGINT UNSIGNED COMMENT '주소'")
     private Address address;
 
+    private Customer(Long id, String name, String email, String password,
+            Address address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+    }
+
+    public static Customer of(String name, String email, String password, Address address) {
+        return new Customer(null, name, email, password, address);
+    }
 }
