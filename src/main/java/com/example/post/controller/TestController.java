@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"[01] TEST"})
-@RequestMapping("/test")
+@RequestMapping("/v1/test")
 @RestController
 public class TestController {
 

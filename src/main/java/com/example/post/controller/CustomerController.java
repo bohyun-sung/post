@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "{03. 회원}")
 @RequiredArgsConstructor
-@RestController
+@RestController("/v1")
 public class CustomerController {
 
     private final CustomerService customerService;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "{02. 댓글}")
 @RequiredArgsConstructor
-@RestController("/reply")
+@RestController("/v1/reply")
 public class ReplyController {
     private final ReplyService replyService;
 

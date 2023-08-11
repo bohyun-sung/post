@@ -38,10 +38,15 @@ public class AuthenticationConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authirize ->
                         authirize.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                // GET 접근 허용
                                 .mvcMatchers(GET).permitAll()
-                                .mvcMatchers(POST, SecurityWhiteList.post)
-//                                .mvcMatchers("/customer/**").hasRole(CUSTOMER_ROLE)
-//                                .anyRequest().authenticated()
+                                // POST 접근 불가
+                                .mvcMatchers(POST, SecurityWhiteList.post).permitAll()
+                                .mvcMatchers("/v1/**").hasRole(CUSTOMER_ROLE)
+                                // 스웨거 페이지 접근 허용
+                                .antMatchers("/v2/api-docs", "/v3/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**", "/swagger*/**").permitAll() // 스웨거 페이지 접근 허용
+                                // 그외의 페이지 접근 불가
+                                .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(customUserDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .build();

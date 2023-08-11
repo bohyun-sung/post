@@ -10,6 +10,6 @@ public class SignInRes {
     private String token;
 
     public static SignInRes from(String token) {
-        return new SignInRes(token);
+        return new SignInRes("Bearer " + token);
     }
 }

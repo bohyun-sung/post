@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "{01.게시판}")
 @RequiredArgsConstructor
-@RestController(value = "/post")
+@RestController(value = "/v1/post")
 public class PostController {
 
     private final PostService postService;
