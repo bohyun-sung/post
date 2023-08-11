@@ -13,15 +13,15 @@ public class EncryptionUtils {
     // 암호화 encryptAES256
     public static String encrypt(String text) {
         // 평문 데이터를 암호화
-        return _getEncryptor().encrypt(text);
+        return getEncryptor().encrypt(text);
     }
 
     // 복호화 decryptAES256
     public static String decrypt(String encryptedText) {
-        return _getEncryptor().decrypt(encryptedText);
+        return getEncryptor().decrypt(encryptedText);
     }
 
-    private static TextEncryptor _getEncryptor() {
+    private static TextEncryptor getEncryptor() {
         if (encryptor == null) {
             encryptor = Encryptors.text(
                     getSecretKey(),
