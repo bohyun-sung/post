@@ -31,10 +31,12 @@ public class EncryptionUtils {
         return encryptor;
     }
 
+    /**
+     * TODO yml 로 이전
+     * @return JWT secretKey
+     */
     public static String getSecretKey() {
-        return "secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey"
-                + "secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey"
-                + "secretKeysecretKeysecretKey";
+        return "MySecretKeyTestKeySizeIs$64ByteTestKey";
     }
 
     public static String getSalt() {
