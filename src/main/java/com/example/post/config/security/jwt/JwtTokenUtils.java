@@ -46,8 +46,7 @@ public class JwtTokenUtils {
     }
 
     private static Key getKey() {
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
-//        byte[] keyBytes = EncryptionUtils.getSecretKey().getBytes(StandardCharsets.UTF_8);
-//        return Keys.hmacShaKeyFor(keyBytes);
+        byte[] keyBytes = EncryptionUtils.getSecretKey().getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
