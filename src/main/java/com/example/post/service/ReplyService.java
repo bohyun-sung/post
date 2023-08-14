@@ -1,6 +1,6 @@
 package com.example.post.service;
 
-import com.example.post.config.response.Response;
+import com.example.post.config.security.CustomerPrincipal;
 import com.example.post.domain.post.entity.Post;
 import com.example.post.domain.post.repository.PostRepository;
 import com.example.post.domain.reply.dto.request.ReplyCreateAndUpdateReq;
@@ -19,9 +19,10 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
 
     @Transactional
-    public void createReply(Long replyId, ReplyCreateAndUpdateReq req) {
+    public void createReply(Long replyId, ReplyCreateAndUpdateReq req,
+            CustomerPrincipal principal) {
         Post post = getPostOrException(replyId);
-        Reply reply = req.toEntity(post);
+        Reply reply = req.toEntity(post, principal.getName());
         replyRepository.save(reply);
     }
 

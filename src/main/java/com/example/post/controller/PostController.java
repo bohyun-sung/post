@@ -12,17 +12,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "{01.게시판}")
 @RequiredArgsConstructor
-@RestController(value = "/v1/post")
+@RequestMapping("/v1/post")
+@RestController
 public class PostController {
 
     private final PostService postService;
@@ -44,7 +47,7 @@ public class PostController {
 
     @ApiOperation(value = "게시물 등록")
     @PostMapping
-    public Response<Void> createPost(@RequestBody PostCreateAndUpdateReq req) {
+    public Response<Void> createPost(@RequestBody @Validated PostCreateAndUpdateReq req) {
         postService.createPost(req);
         return Response.success();
     }
