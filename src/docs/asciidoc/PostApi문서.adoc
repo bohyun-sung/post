@@ -1,0 +1,52 @@
+= Post API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+// :snippets: snippetsDir
+:sectlinks:
+
+[[post]]
+== 게시물 가져오기
+operation::post[]
+// include::{snippets}/post/curl-request.adoc[]
+// include::{snippets}/post/curl-request.adoc[]
+//
+// === Response Fields
+//
+// include::{snippets}/post/response-fields.adoc[]
+//
+// === HTTP request
+//
+// include::{snippets}/post/http-request.adoc[]
+//
+// === HTTP response
+//
+// include::{snippets}/post/http-response.adoc[]
+// === Request
+// include::{snippets}/post/http-request.adoc[]
+// operation::post[]
+
+[[post_show]]
+== 게시물 상세보기
+operation::post_show[]
+// //
+[[post_create]]
+== 게시물 등록
+operation::post_create[snippets='http-request,http-response,response-fields']
+// === include::{snippets}/post/http-request.adoc[]
+//
+// === Response
+//
+// === include::{snippets}/post/http-response.adoc[]
+// include::build/generated-snippets/post/http-response.adoc[]
+
+// === Test
+// include::build/generated-snippets/post/curl-request.adoc[]
+// include::build/generated-snippets/post/httpie-request.adoc[]
+// include::build/generated-snippets/post/http-request.adoc[]
+// include::build/generated-snippets/post/http-response.adoc[]
+// include::build/generated-snippets/post/request-body.adoc[]
+// include::build/generated-snippets/post/response-body.adoc[]
+// include::build/generated-snippets/post/response-fields.adoc[]

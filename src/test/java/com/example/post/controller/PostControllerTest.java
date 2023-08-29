@@ -73,6 +73,17 @@ class PostControllerTest {
 //                .defaultRequest(delete("/**").with(csrf()))
 //                .build();
     }
+//    @BeforeEach
+//    void setUpRestDocs(RestDocumentationContextProvider restDocumentation) {
+//        Filter documentationConfiguration = documentationConfiguration(restDocumentation)
+//                .operationPreprocessors()
+//                .withRequestDefaults(prettyPrint())
+//                .withResponseDefaults(prettyPrint());
+//
+//        this.spec = new RequestSpecBuilder()
+//                .addFilter(documentationConfiguration)
+//                .build();
+//    }
 
     @DisplayName("[GET] 게시판_목록_조회")
     @WithMockUser
