@@ -2,6 +2,10 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.14'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
+	// 해당 플러그인은 .adoc 파일 변환과 build/ 디렉토리에 복사해주는 플러그인입니다. Gradle 버전 7 이상부터
+	// 'org.asciidoctor.jvm.convert' 로 변경되었다고 합니다
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'com.example'
@@ -15,11 +19,16 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	// asciidoctor를 확장하는 asciidoctorExt 에 대한 종속성 구성을 선언
+	asciidoctorExt
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.projectlombok:lombok:1.18.26'
-	// swagger
 
+	// swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
 	// JPA
@@ -38,6 +47,7 @@ dependencies {
 
 	// security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 	// jwt
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
@@ -52,6 +62,60 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	// test-scope mockMvc에 의존성을 추가
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+// Snippets 생성위치를 전역 변수로 할당
+//ext {
+//	snippetsDir = file('build/generated-snippets')
+//}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets")) //문서 조각인 스니펫이 생성되는 경로
+}
+
+test {
+	//  test의 출력 디렉토리를 Snippets 디렉토리로 설정
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+asciidoctor {
+	// 입력 디렉토리를 Snippets 디렉토리로 설정
+	// (8) 스니펫 디렉터리를 입력으로 구성합니다
+	inputs.dir snippetsDir
+	// (9) configuration asciidoctorExt 을 구성합니다
+	configurations 'asciidoctorExt'
+	// (10) 문서가 생성되기 전에 테스트가 실행되도록 작업이 테스트 작업에 종속되도록 합니다.
+	dependsOn test
+}
+
+// static/docs 폴더 비우기
+asciidoctor.doFirst {
+	delete file('src/main/resources/static/docs')
+}
+
+// (13) asccidoctor 작업 이후 생성된 HTML 파일을 static/docs 로 copy
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+//	from file("build/docs/asciidoc")
+	from file("${asciidoctor.outputDir}")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument
+}
+
+bootJar {
+	// (11) jar 가 build 되기 전에 문서 생성
+	dependsOn asciidoctor
+	// (12) 생성된 문서를 jar 의 static/docs 디렉토리에 복사합니다.
+	from ("${asciidoctor.outputDir}") {
+		into 'static/docs'
+	}
 }
 
 tasks.named('test') {

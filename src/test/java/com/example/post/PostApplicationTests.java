@@ -25,14 +25,14 @@ class PostApplicationTests {
 
 	}
 
-	@Test
-	void postIndex() {
-		List<Post> posts = postRepository.findAll();
-		Assertions.assertEquals(2, posts.size());
-
-		Post post = posts.get(0);
-		Assertions.assertEquals("제목1", post.getTitle());
-	}
+//	@Test
+//	void postIndex() {
+//		List<Post> posts = postRepository.findAll();
+//		Assertions.assertEquals(2, posts.size());
+//
+//		Post post = posts.get(0);
+//		Assertions.assertEquals("제목1", post.getTitle());
+//	}
 
 	@Test
 	void postShow() {

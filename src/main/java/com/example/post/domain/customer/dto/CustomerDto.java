@@ -13,6 +13,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CustomerDto {
+
     private final Long id;
     private final String name;
     private final String email;
@@ -45,4 +46,8 @@ public class CustomerDto {
         );
     }
 
+    public static CustomerDto of(Long id, String name, String email, String password,
+            AddressDto addressDto, LocalDateTime rgdt, LocalDateTime updt) {
+        return new CustomerDto(id,name,email,password, addressDto, rgdt, updt);
+    }
 }

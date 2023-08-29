@@ -54,7 +54,8 @@ public class PostController {
 
     @ApiOperation(value = "게시물 수정")
     @PatchMapping("/{id}")
-    public Response<Void> updatePost(@PathVariable Long id, @RequestBody PostCreateAndUpdateReq req) {
+    public Response<Void> updatePost(@PathVariable Long id,
+            @RequestBody PostCreateAndUpdateReq req) {
         postService.updatePost(id, req);
         return Response.success();
     }
