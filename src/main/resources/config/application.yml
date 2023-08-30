@@ -32,6 +32,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  restdocs:
+    webtestclient:
+      operation:
+        preprocessors: default-uris=/**/docs/snippets
+
 server:
   sevlet:
     encoding:

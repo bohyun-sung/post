@@ -10,6 +10,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -24,6 +25,7 @@ import com.example.post.domain.post.dto.requset.PostCreateAndUpdateReq;
 import com.example.post.domain.post.entity.Post;
 import com.example.post.domain.reply.entity.Reply;
 import com.example.post.service.PostService;
+import com.example.post.utils.ApiDocumentUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,7 +56,7 @@ class PostControllerTest {
     protected MockMvc mvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper;
 
     @MockBean
     private PostService postService;
@@ -88,7 +90,7 @@ class PostControllerTest {
     @DisplayName("[GET] 게시판_목록_조회")
     @WithMockUser
     @Test
-    void  게시판_목록_조회() throws Exception {
+    void 게시판_목록_조회() throws Exception {
 
         given(postService.indexPost(any(Pageable.class))).willReturn(Page.empty());
 
@@ -97,8 +99,8 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(document("post",
-//                        getDocumentRequest(),
-//                        getDocumentResponse(),
+                        ApiDocumentUtils.getDocumentRequest(),
+                        ApiDocumentUtils.getDocumentResponse(),
                         responseFields(
                                 fieldWithPath("result").description("The data1 field"),
                                 fieldWithPath("data.content").description("The data1 field"),
@@ -115,11 +117,8 @@ class PostControllerTest {
                                 fieldWithPath("data.numberOfElements").description("The data1 field"),
                                 fieldWithPath("data.empty").description("The data1 field")
                         )
-//                        responseFields(
-//                                subsectionWithPath("result").description("결과"),
-//                                subsectionWithPath("data").description("내용")
-//                        )
-                ));
+                    )
+                );
     }
 
     @DisplayName("[GET] 게시판_상세_조회")
@@ -134,7 +133,6 @@ class PostControllerTest {
 
         given(postService.showPost(1L)).willReturn(postDto);
 
-        // 파
         mvc.perform(RestDocumentationRequestBuilders.get("/v1/post/{id}", 1L)
                 .contentType(MediaType.APPLICATION_JSON)
         )
@@ -180,6 +178,51 @@ class PostControllerTest {
                                 fieldWithPath("result").description("성공 여부")
                         )
                     )
+                );
+    }
+
+    @DisplayName("[PATCH] 게시판_수정")
+    @WithMockUser
+    @Test
+    void 게시판_수정() throws Exception {
+        PostCreateAndUpdateReq request = new PostCreateAndUpdateReq();
+        ReflectionTestUtils.setField(request, "title", "test_변경_제목");
+        ReflectionTestUtils.setField(request, "content", "test_변경_본문");
+
+//        given(postService.updatePost(1L, request)).willReturn();
+
+        mvc.perform(patch("/v1/post/{id}", 1L)
+                .header(HttpHeaders.AUTHORIZATION.toLowerCase(), "Bearer token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request))
+                .with(csrf())
+        )
+                .andExpect(status().isOk())
+                .andDo(
+                        document("post_update",
+                                responseFields(
+                                        fieldWithPath("result").description("성공 여부")
+                                )
+                        )
+                );
+    }
+
+    @DisplayName("[DELETE] 게시판_삭제")
+    @WithMockUser
+    @Test
+    void 게시판_삭제() throws Exception {
+        mvc.perform(delete("/v1/post/{id}", 1L)
+                .header(HttpHeaders.AUTHORIZATION.toLowerCase(), "Bearer token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(csrf())
+        )
+                .andExpect(status().isOk())
+                .andDo(
+                        document("post_delete",
+                                responseFields(
+                                        fieldWithPath("result").description("성공 여부")
+                                )
+                        )
                 );
     }
 

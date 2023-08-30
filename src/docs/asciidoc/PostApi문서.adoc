@@ -7,6 +7,9 @@
 // :snippets: snippetsDir
 :sectlinks:
 
+:operation-curl-request-title: curl
+:operation-http-request-title: HTTP 요청
+
 [[post]]
 == 게시물 가져오기
 operation::post[]
@@ -35,6 +38,7 @@ operation::post_show[]
 [[post_create]]
 == 게시물 등록
 operation::post_create[snippets='http-request,http-response,response-fields']
+
 // === include::{snippets}/post/http-request.adoc[]
 //
 // === Response
