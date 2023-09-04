@@ -57,6 +57,10 @@ dependencies {
 	// validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// xss
+	implementation "com.navercorp.lucy:lucy-xss:1.6.3"
+	implementation "com.navercorp.lucy:lucy-xss-servlet:2.0.1"
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

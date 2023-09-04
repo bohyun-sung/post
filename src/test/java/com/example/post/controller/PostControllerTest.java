@@ -27,6 +27,7 @@ import com.example.post.domain.reply.entity.Reply;
 import com.example.post.service.PostService;
 import com.example.post.utils.ApiDocumentUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.beans.ParameterDescriptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.hypermedia.LinksSnippet;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -92,6 +94,17 @@ class PostControllerTest {
     @Test
     void 게시판_목록_조회() throws Exception {
 
+        ParameterDescriptor parameterDescriptor = new ParameterDescriptor();
+        // response
+        FieldDescriptor[] fieldDescriptor = new FieldDescriptor[]{
+                fieldWithPath("test").description("test")
+        };
+
+        FieldDescriptor[] fieldDescriptor2 = new FieldDescriptor[]{
+                fieldWithPath("test2").description("test2")
+        };
+
+        fieldDescriptor.
         given(postService.indexPost(any(Pageable.class))).willReturn(Page.empty());
 
         mvc.perform(get("/v1/post")
